@@ -15,6 +15,13 @@ yesterday to HipChat.
 
     daily-standup "Today I'm going to implement OAuth2."
 
+Posts the following message to HipChat:
+
+    Today I'm going to implement OAuth2. Since yesterday I've done:
+    * Add sign-in page (bloodhound/website 034cb8)
+    * Add landing page (bloodhound/website b32089)
+    * Fix bug with authentication (bloodhound/api eda96d)
+
 ### Options
 
 `-h, --help` output usage information
