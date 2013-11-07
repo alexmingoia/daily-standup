@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+/**
+ * Post latest commits for given repositories to HipChat.
+ *
+ * Usage:
+ *
+ *   daily-standup <message> [--config <path>]
+ */
+
+var fs      = require('fs')
+  , path    = require('path')
+  , program = require('commander')
+  , Report  = require('../lib/report.js');
+
+program
+  .version(Report.version)
+  .usage('<message> [--config <path>]')
+  .option('--config <path>', 'JSON configuration')
+  .parse(process.argv);
+
+if (process.argv.length < 3) program.help();
+
+program.config = JSON.parse(
+  fs.readFileSync(
+    program.config || path.join(process.cwd(), 'standup.json')
+  )
+);
+
+var report = new Report(program.args[0], program.config);
+
+report.send(function(err, body) {
+  if (err) return console.error(err);
+});
