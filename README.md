@@ -24,8 +24,8 @@ Posts the following message to HipChat:
 
 ### Options
 
-`-h, --help` output usage information
-`-V, --version` output the version number
+`-h, --help` output usage information  
+`-V, --version` output the version number  
 `--config <path>` JSON configuration
 
 ## Configuration
