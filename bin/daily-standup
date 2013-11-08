@@ -15,11 +15,11 @@ var fs      = require('fs')
 
 program
   .version(Report.version)
-  .usage('<message> [--config <path>]')
+  .usage('[message] [--config <path>]')
   .option('--config <path>', 'JSON configuration')
   .parse(process.argv);
 
-if (process.argv.length < 3) program.help();
+if (process.argv.length < 2) program.help();
 
 program.config = JSON.parse(
   fs.readFileSync(
@@ -27,8 +27,28 @@ program.config = JSON.parse(
   )
 );
 
-var report = new Report(program.args[0], program.config);
+if (!program.config.keys || !program.config.keys.github) {
+  console.error("You must specify a GitHub API key.");
+  program.exit(1);
+}
+if (!program.config.keys || !program.config.keys.hipchat) {
+  console.error("You must specify a HipChat API key.");
+  program.exit(1);
+}
+if (!program.config.room) {
+  console.error("You must specify a HipChat room id to post to.");
+  program.exit(1);
+}
+if (!program.config.keys.asana && !program.args[0]) {
+  console.error(
+    "You must specify an Asana API key to use the next due " +
+    "Asana task for today's work."
+  );
+  program.exit(1);
+}
 
-report.send(function(err, body) {
+var report = new Report(program.args[0] || null, program.config);
+
+report.send(function(err, data) {
   if (err) return console.error(err);
 });

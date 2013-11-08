@@ -10,10 +10,16 @@
     "commander": "~2.0.0",
     "github": "~0.1.12",
     "hipchatter": "0.0.5",
-    "needle": "~0.6.3"
+    "needle": "~0.6.3",
+    "asana-api": "~0.2.0",
+    "async": "~0.2.9"
   },
   "engines": {
     "node": ">= 0.8"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "should": "~2.0.2"
+  }
 }
